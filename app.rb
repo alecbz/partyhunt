@@ -12,6 +12,9 @@ class User
   property :id, Serial
   property :username, String
   property :password, String
+  property :created, DateTime
+
+  validates_uniqueness_of :username
 end
 
 DataMapper.finalize
@@ -24,7 +27,8 @@ end
 post '/register' do
   # do stuff
   @user = User.create(:username => params[:username],
-              :password => params[:password])
+              :password => params[:password],
+              :created => Time.now)
   redirect "/user/#{@user.id}"
 end
 
