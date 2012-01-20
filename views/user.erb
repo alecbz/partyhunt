@@ -1,7 +1,11 @@
 <html>
   <body>
-    <p>Hello <%= @user.username %>!
-    <p>You created your account at <%= @user.created %></p>
+    <% if @user %>
+      <p>Hello <%= @user.username %>!
+      <p>You created your account at <%= @user.created %></p>
+    <% else %>
+      <p>No user named '<%=params[:username]%>' found</p>
+    <% end %>
   </body>
 </html>
     
