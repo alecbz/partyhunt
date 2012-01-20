@@ -4,7 +4,7 @@ require 'dm-migrations'
 
 DataMapper::Logger.new($stdout, :debug)
 
-DataMapper.setup(:default, 'sqlite::memory')
+DataMapper.setup(:default, 'sqlite::memory:')
 
 class User
   include DataMapper::Resource
