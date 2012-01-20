@@ -10,11 +10,12 @@ class User
   include DataMapper::Resource
 
   property :id, Serial
-  property :username, String
+  property :username, String, :unique => true,
+    :messages => {
+      :is_unique => "That username is already taken"
+    }
   property :password, String
   property :created, DateTime
-
-  validates_uniqueness_of :username
 end
 
 DataMapper.finalize
@@ -26,10 +27,14 @@ end
 
 post '/register' do
   # do stuff
-  @user = User.create(:username => params[:username],
+  @user = User.new(:username => params[:username],
               :password => params[:password],
               :created => Time.now)
-  redirect "/user/#{@user.id}"
+  if @user.save 
+    redirect "/user/#{@user.id}"
+  else
+    erb :index
+  end
 end
 
 get '/user/:id' do |id|

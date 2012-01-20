@@ -3,6 +3,11 @@
     <title>PartyHunt</title>
   </head>
   <body>
+    <% if @user and @user.errors %>
+      <% @user.errors.each do |error| %>
+        <%= error.join("<br />") %><br />
+      <% end %>
+    <% end %>
     <form method="post" action="/register">
       Username: <input type="text" name="username" /><br />
       Password: <input type="password" name="password" /><br />
