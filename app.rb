@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'sinatra'
 # require 'data_mapper'
 # require 'dm-migrations'
@@ -57,4 +58,5 @@ end
 # get '/user/:username' do |username|
 #   @user = User.first(:username => params[:username])
 #   erb :user
+
 # end
