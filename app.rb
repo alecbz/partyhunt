@@ -28,7 +28,7 @@ DataMapper.auto_migrate!
 # end
 
 get '/' do
-  @fbcallback = "https://www.facebook.com/dialog/oauth?client_id=388741837807046&redirect_uri=#{request.host}:#{request.port}/fb_callback"
+  @fbcallback = "https://www.facebook.com/dialog/oauth?client_id=388741837807046&redirect_uri=http://#{request.host}:#{request.port}/fb_callback"
   erb :index
 end
 
