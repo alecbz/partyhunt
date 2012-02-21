@@ -22,9 +22,6 @@
        }(document));
     </script>
     <div class="fb-login-button">Login with Facebook</div>-->
-    <a href="https://www.facebook.com/dialog/oauth?
-         client_id=388741837807046&redirect_uri=http://partyhunt.heroku.com">
-         Login with Facebook
-    </a>
+    <a href="<%=@fbcallback%>">Login with Facebook</a>
   </body>
 </html>

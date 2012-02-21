@@ -1,36 +1,21 @@
 require 'rubygems'
 require 'sinatra'
-# require 'data_mapper'
-# require 'dm-migrations'
+require 'data_mapper'
+require 'dm-migrations'
 
-# DataMapper::Logger.new($stdout, :debug)
+DataMapper::Logger.new($stdout, :debug)
 
-# DataMapper.setup(:default, 'sqlite::memory:')
+DataMapper.setup(:default, 'sqlite::memory:')
 
-# class User
-#   include DataMapper::Resource
-# 
-#   property :id, Serial
-#   property :username, String, :unique => true,
-#     :messages => {
-#       :is_unique => "That username is already taken"
-#     }
-#   property :password, String
-#   property :salt, String
-#   property :created, DateTime
-# 
-#   def self.register(username,password)
-#     salt = random_salt
-#     hash = hash_password(password,salt)
-#     User.new(:username => username,
-#         :password => hash,
-#         :salt => salt,
-#         :created => Time.now)
-#   end
-# end
+class User
+  include DataMapper::Resource
 
-# DataMapper.finalize
-# DataMapper.auto_migrate!
+   property :id, Serial
+   property :fbcode, String
+end
+
+DataMapper.finalize
+DataMapper.auto_migrate!
 
 # def random_salt
 #   letters = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
@@ -43,7 +28,13 @@ require 'sinatra'
 # end
 
 get '/' do
+  @fbcallback = "https://www.facebook.com/dialog/oauth?client_id=388741837807046&redirect_uri=#{request.host}:#{request.port}/fb_callback"
   erb :index
+end
+
+get '/fb_callback' do 
+  User.create(fbcode => params[:code])
+  "The facebook code is #{params[:code]}"
 end
 
 # post '/register' do
